@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>公演スケジュール</title>
+  <style>
+    /* 余白をなくし、画面いっぱいに広げる設定 */
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #fff; }
+    iframe { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body>
+  
+  <iframe id="gasFrame" src=""></iframe>
+
+  <script>
+    // ★ここに、今使っているGASのURL（https://script.google.com/macros/s/〜/exec）を貼り付けます！
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw3j6y3Zrqdj6yYD8nxnehaSWyqI1Z0yGkjadHlxcNIpsqllbiLkpCh_bT51ixsTB-xYw/exec";
+    
+    // 開いたURLの「?page=...」などのパラメーターをそのままGASに引き継いで表示する魔法のコード
+    document.getElementById('gasFrame').src = GAS_URL + window.location.search;
+  </script>
+
+</body>
+</html>
