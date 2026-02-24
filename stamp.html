@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイスタンプカード</title>
+  <style>
+    /* 余白をなくして全画面表示にする */
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #fdf2f5; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
+  </style>
+</head>
+<body>
+
+  <iframe id="gasFrame" src=""></iframe>
+
+  <script>
+    // ★ ここに「GASの最新デプロイURL」を貼り付けてください！
+    const gasBaseUrl = "https://script.google.com/macros/s/AKfycbx0Jm_MtczEhO5IVaTHJyuyd7el-R0Uha_jchWbY49LNdYf9pqFQq2zGuja9-apKwxJ/exec";
+    
+    // ファンが「?fid=F001」などのリンクから来た場合、その情報をそのままGASに引き継ぐ魔法の処理
+    const queryString = window.location.search;
+    document.getElementById("gasFrame").src = gasBaseUrl + queryString;
+  </script>
+
+</body>
+</html>
