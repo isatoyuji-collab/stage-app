@@ -35,22 +35,17 @@
     const queryString = window.location.search;
     document.getElementById('app-frame').src = gasUrl + queryString;
 
-    // GASからのページ遷移通知を受け取ってGA4に送信（送信元チェックなし）
-   // ハッシュ変化を監視してGA4に送信
-window.addEventListener('hashchange', function() {
-  const hash = window.location.hash.replace('#', '');
-  if (!hash) return;
-  const parts = hash.split('_');
-  const page = parts[0] || 'home';
-  const id = parts[1] || '';
-  gtag('event', 'page_view', {
-    page_title: page,
-    page_path: '/?page=' + page + (id ? '&id=' + id : '')
-  });
-  console.log('GA4送信:', page);
-});
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'pageView') {
+        const page = event.data.pageId || 'home';
+        const id = event.data.dataId || '';
+        gtag('event', 'page_view', {
+          page_title: page,
+          page_path: '/?page=' + page + (id ? '&id=' + id : '')
+        });
+        console.log('GA4送信:', page);
+      }
     });
   </script>
 </body>
 </html>
-
