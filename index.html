@@ -15,7 +15,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-9XJ8H2PCQH');
+    gtag('config', 'G-9XJ8H2PCQH', { send_page_view: false });
   </script>
 
   <!-- Microsoft Clarity -->
@@ -34,6 +34,25 @@
     const gasUrl = "https://script.google.com/macros/s/AKfycbw3j6y3Zrqdj6yYD8nxnehaSWyqI1Z0yGkjadHlxcNIpsqllbiLkpCh_bT51ixsTB-xYw/exec";
     const queryString = window.location.search;
     document.getElementById('app-frame').src = gasUrl + queryString;
+
+    // iframeのURL変化を監視してGA4に仮想ページビューを送信
+    let lastPage = '';
+    setInterval(function() {
+      try {
+        const iframeSrc = document.getElementById('app-frame').src;
+        const url = new URL(iframeSrc);
+        const page = url.searchParams.get('page') || 'home';
+        const id = url.searchParams.get('id') || '';
+        const current = page + (id ? '_' + id : '');
+        if (current !== lastPage) {
+          lastPage = current;
+          gtag('event', 'page_view', {
+            page_title: page,
+            page_path: '/?page=' + page + (id ? '&id=' + id : '')
+          });
+        }
+      } catch(e) {}
+    }, 1000);
   </script>
 </body>
 </html>
