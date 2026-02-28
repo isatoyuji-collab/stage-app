@@ -35,24 +35,17 @@
     const queryString = window.location.search;
     document.getElementById('app-frame').src = gasUrl + queryString;
 
-    // iframeのURL変化を監視してGA4に仮想ページビューを送信
-    let lastPage = '';
-    setInterval(function() {
-      try {
-        const iframeSrc = document.getElementById('app-frame').src;
-        const url = new URL(iframeSrc);
-        const page = url.searchParams.get('page') || 'home';
-        const id = url.searchParams.get('id') || '';
-        const current = page + (id ? '_' + id : '');
-        if (current !== lastPage) {
-          lastPage = current;
-          gtag('event', 'page_view', {
-            page_title: page,
-            page_path: '/?page=' + page + (id ? '&id=' + id : '')
-          });
-        }
-      } catch(e) {}
-    }, 1000);
+    // GASからのページ遷移通知を受け取ってGA4に送信
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'pageView') {
+        const page = event.data.pageId || 'home';
+        const id = event.data.dataId || '';
+        gtag('event', 'page_view', {
+          page_title: page,
+          page_path: '/?page=' + page + (id ? '&id=' + id : '')
+        });
+      }
+    });
   </script>
 </body>
 </html>
