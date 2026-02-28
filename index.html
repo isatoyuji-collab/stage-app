@@ -35,7 +35,7 @@
     const queryString = window.location.search;
     document.getElementById('app-frame').src = gasUrl + queryString;
 
-    // GASからのページ遷移通知を受け取ってGA4に送信
+    // GASからのページ遷移通知を受け取ってGA4に送信（送信元チェックなし）
     window.addEventListener('message', function(event) {
       if (event.data && event.data.type === 'pageView') {
         const page = event.data.pageId || 'home';
@@ -44,6 +44,7 @@
           page_title: page,
           page_path: '/?page=' + page + (id ? '&id=' + id : '')
         });
+        console.log('GA4送信:', page); // 確認用ログ
       }
     });
   </script>
