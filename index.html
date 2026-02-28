@@ -5,27 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>公演スケジュールアプリ</title>
   <style>
-    /* 余白を完全に消してアプリを全画面表示にする */
     body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #FAFAFA; }
     iframe { width: 100%; height: 100%; border: none; display: block; }
   </style>
-</head>
-<body>
-  
-  <iframe id="app-frame" allow="clipboard-write"></iframe>
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XJ8H2PCQH"></script>
   <script>
-    // ① 本番環境GASの「ウェブアプリのURL」をここに貼り付けます
-    const gasUrl = "https://script.google.com/macros/s/AKfycbw3j6y3Zrqdj6yYD8nxnehaSWyqI1Z0yGkjadHlxcNIpsqllbiLkpCh_bT51ixsTB-xYw/exec";
-    
-    // ② GitHubのURLについているパラメータ（?page=... など）を取得
-    const queryString = window.location.search;
-    
-    // ③ GASのURLにパラメータをくっつけて iframe の中で開く！
-    document.getElementById('app-frame').src = gasUrl + queryString;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9XJ8H2PCQH');
   </script>
 
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vo7rrhpte5");
+  </script>
+
+</head>
+<body>
+  <iframe id="app-frame" allow="clipboard-write"></iframe>
+  <script>
+    const gasUrl = "https://script.google.com/macros/s/AKfycbw3j6y3Zrqdj6yYD8nxnehaSWyqI1Z0yGkjadHlxcNIpsqllbiLkpCh_bT51ixsTB-xYw/exec";
+    const queryString = window.location.search;
+    document.getElementById('app-frame').src = gasUrl + queryString;
+  </script>
 </body>
 </html>
-
-
